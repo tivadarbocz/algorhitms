@@ -10,10 +10,10 @@ namespace SortingAlgorhitms
         {
             Algorhitm alg = new Algorhitm();
             List<int> list = new List<int>() { 5, 9, 2, 7, 1 };
-            Dictionary<string, long> algorhitmsRT = new Dictionary<string, long>();
+            Dictionary<string, double> algorhitmsRT = new Dictionary<string, double>();
 
             Console.WriteLine("Unordered List:");
-            long elapsedTimeMs;
+            double elapsedTimeMs;
             Print(list);
 
             //Bubble Sort
@@ -61,7 +61,7 @@ namespace SortingAlgorhitms
          ******************************************/
 
 
-        public int[] BubbleSort(int[] list, out long elapsedTimeMs)
+        public int[] BubbleSort(int[] list, out double elapsedTimeMs)
         {
             var watch = Stopwatch.StartNew();
 
@@ -79,7 +79,7 @@ namespace SortingAlgorhitms
             //
 
             watch.Stop();
-            elapsedTimeMs = watch.ElapsedTicks;
+            elapsedTimeMs = watch.Elapsed.TotalMilliseconds;
             return list;
         }
 
@@ -92,7 +92,7 @@ namespace SortingAlgorhitms
                         Swap(A[j],A[j-1])
                         --j 
          ******************************************/
-        public int[] InsertionSort(int[] list, out long elapsedTimeMs)
+        public int[] InsertionSort(int[] list, out double elapsedTimeMs)
         {
             var watch = Stopwatch.StartNew();
 
@@ -108,7 +108,7 @@ namespace SortingAlgorhitms
             }
             //
             watch.Stop();
-            elapsedTimeMs = watch.ElapsedTicks;
+            elapsedTimeMs = watch.Elapsed.TotalMilliseconds;
             return list;
         }
 
