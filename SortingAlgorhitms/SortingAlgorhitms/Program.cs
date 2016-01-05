@@ -50,6 +50,14 @@ namespace SortingAlgorhitms
             Console.WriteLine("Quick Sort Running time in MS: " + elapsedTimeMs);
             algorhitmsRT["QuickSort"] = elapsedTimeMs;
 
+            //Quick Sort
+            Console.WriteLine("");
+            Console.WriteLine("Ordered List with Selection Sort:");
+            Print(alg.SelectionSort(new int[] { 54, 92, 23, 71, 18, 32, 75, 31, 37, 99, 19, 0, 11, 64 }, out elapsedTimeMs));
+            Console.WriteLine("");
+            Console.WriteLine("Selection Sort Running time in MS: " + elapsedTimeMs);
+            algorhitmsRT["Selection"] = elapsedTimeMs;
+
             Console.ReadKey();
         }
 
@@ -149,7 +157,7 @@ namespace SortingAlgorhitms
                 MergeSort(list, left, mid, out elapsedTimeMs);
                 MergeSort(list, (mid + 1), right, out elapsedTimeMs);
 
-                DoMerge(list, left, (mid + 1), right);
+                Merge(list, left, (mid + 1), right);
             }
             //
             watch.Stop();
@@ -157,6 +165,11 @@ namespace SortingAlgorhitms
             return list;
         }
 
+        /*******************************************
+        How "Quick Sort" algorithm is working - Best O(n log n), Average O(n log n), Worst O(n^2)
+
+            
+         ******************************************/
         public int[] QuickSort(int[] list, int left, int right, out double elapsedTimeMs)
         {
             var watch = Stopwatch.StartNew();
@@ -179,16 +192,43 @@ namespace SortingAlgorhitms
             return list;
         }
 
+        /*******************************************
+        How "Selection Sort" algorithm is working - Best O(n^2), Average O(n^2), Worst O(n^2)
+        for i = 0 to n-1
+            for j = i+1 to n
+                minPosition = findMin()
+            Swap(i,minPosition)
+            
+        ******************************************/
+
+        public int[] SelectionSort(int[] list, out double elapsedTimeMs)
+        {
+            var watch = Stopwatch.StartNew();
+
+            //Core algorhitm
+            for (int i = 0; i < list.Length-1; ++i)
+            {
+                int min = list[i];
+                int minPosition = i;
+                for (int j = i+1; j < list.Length; ++j)
+                {
+                    if (min > list[j])
+                    {
+                        min = list[j];
+                        minPosition = j;
+                    }
+                }
+                Swap(ref list[i], ref list[minPosition]);
+            }
+            //
+            watch.Stop();
+            elapsedTimeMs = watch.Elapsed.TotalMilliseconds;
+            return list;
+        }
+
         private void Swap(ref int x, ref int y)
         {
             int tmp = x;
-            x = y;
-            y = tmp;
-        }
-
-        private void Swap(ref int[] x, ref int[] y)
-        {
-            int[] tmp = x;
             x = y;
             y = tmp;
         }
@@ -218,7 +258,7 @@ namespace SortingAlgorhitms
 
         }
 
-        private void DoMerge(int[] numbers, int left, int mid, int right)
+        private void Merge(int[] numbers, int left, int mid, int right)
         {
             int[] temp = new int[25];
             int i, left_end, num_elements, tmp_pos;
