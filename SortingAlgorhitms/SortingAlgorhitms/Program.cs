@@ -11,9 +11,7 @@ namespace SortingAlgorhitms
         {
             int[] list = new int[] { 54, 92, 23, 71, 18, 32, 75, 31, 37, 99, 19, 0, 11, 64 };
             Dictionary<string, double> algorhitmsRT = new Dictionary<string, double>();
-
             Console.WriteLine("Unordered List:");
-
             Print(list);
            
             SortTest(SortType.BubbleSort, algorhitmsRT);
