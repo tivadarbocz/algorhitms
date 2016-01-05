@@ -6,59 +6,56 @@ namespace SortingAlgorhitms
 {
     class Program
     {
+        enum SortType { BubbleSort, InseretionSort, MergeSort, QuickSort, SelectionSort }
         static void Main(string[] args)
         {
-            Algorhitm alg = new Algorhitm();
             int[] list = new int[] { 54, 92, 23, 71, 18, 32, 75, 31, 37, 99, 19, 0, 11, 64 };
             Dictionary<string, double> algorhitmsRT = new Dictionary<string, double>();
 
             Console.WriteLine("Unordered List:");
-            double elapsedTimeMs;
+
             Print(list);
-
-            //Bubble Sort
-            Console.WriteLine("");
-            Console.WriteLine("Ordered List with BubbleSort:");
-            Print(alg.BubbleSort(new int[] { 54, 92, 23, 71, 18, 32, 75, 31, 37, 99, 19, 0, 11, 64 }, out elapsedTimeMs));
-            Console.WriteLine("");
-            Console.WriteLine("Bubble Sort Running time in MS: " + elapsedTimeMs);
-
-            algorhitmsRT["BubbleSort"] = elapsedTimeMs;
-
-            //Insertion Sort
-            Console.WriteLine("");
-            Console.WriteLine("Ordered List with Insertion Sort:");
-            Print(alg.InsertionSort(new int[] { 54, 92, 23, 71, 18, 32, 75, 31, 37, 99, 19, 0, 11, 64 }, out elapsedTimeMs));
-            Console.WriteLine("");
-            Console.WriteLine("Insertion Sort Running time in MS: " + elapsedTimeMs);
-
-            algorhitmsRT["InsertionSort"] = elapsedTimeMs;
-
-            //Merge Sort
-            Console.WriteLine("");
-            Console.WriteLine("Ordered List with Merge Sort:");
-            Print(alg.MergeSort(new int[] { 54, 92, 23, 71, 18, 32, 75, 31, 37, 99, 19, 0, 11, 64 },0,13, out elapsedTimeMs));
-            Console.WriteLine("");
-            Console.WriteLine("Merge Sort Running time in MS: " + elapsedTimeMs);
-            algorhitmsRT["MergeSort"] = elapsedTimeMs;
-
-            //Quick Sort
-            Console.WriteLine("");
-            Console.WriteLine("Ordered List with Quick Sort:");
-            Print(alg.QuickSort(new int[] { 54, 92, 23, 71, 18, 32, 75, 31, 37, 99, 19, 0, 11, 64 },0,13, out elapsedTimeMs));
-            Console.WriteLine("");
-            Console.WriteLine("Quick Sort Running time in MS: " + elapsedTimeMs);
-            algorhitmsRT["QuickSort"] = elapsedTimeMs;
-
-            //Quick Sort
-            Console.WriteLine("");
-            Console.WriteLine("Ordered List with Selection Sort:");
-            Print(alg.SelectionSort(new int[] { 54, 92, 23, 71, 18, 32, 75, 31, 37, 99, 19, 0, 11, 64 }, out elapsedTimeMs));
-            Console.WriteLine("");
-            Console.WriteLine("Selection Sort Running time in MS: " + elapsedTimeMs);
-            algorhitmsRT["Selection"] = elapsedTimeMs;
-
+           
+            SortTest(SortType.BubbleSort, algorhitmsRT);
+            SortTest(SortType.MergeSort, algorhitmsRT);
+            SortTest(SortType.InseretionSort, algorhitmsRT);
+            SortTest(SortType.QuickSort, algorhitmsRT);
+            SortTest(SortType.SelectionSort, algorhitmsRT);
             Console.ReadKey();
+        }
+
+
+        private static void SortTest(SortType type, Dictionary<string, double> algorhitmsRT)
+        {
+            Algorhitm alg = new Algorhitm();
+            double elapsedTimeMs;
+            Console.WriteLine(Environment.NewLine);
+            Console.WriteLine("Ordered List with "+type+":");
+            switch (type)
+            {
+                case SortType.SelectionSort:
+                    Print(alg.SelectionSort(new int[] { 54, 92, 23, 71, 18, 32, 75, 31, 37, 99, 19, 0, 11, 64 }, out elapsedTimeMs));
+                    break;
+                case SortType.QuickSort:
+                    Print(alg.QuickSort(new int[] { 54, 92, 23, 71, 18, 32, 75, 31, 37, 99, 19, 0, 11, 64 }, 0, 13, out elapsedTimeMs));
+                    break;
+                case SortType.BubbleSort:
+                    Print(alg.BubbleSort(new int[] { 54, 92, 23, 71, 18, 32, 75, 31, 37, 99, 19, 0, 11, 64 }, out elapsedTimeMs));
+                    break;
+                case SortType.MergeSort:
+                    Print(alg.MergeSort(new int[] { 54, 92, 23, 71, 18, 32, 75, 31, 37, 99, 19, 0, 11, 64 }, 0, 13, out elapsedTimeMs));
+                    break;
+                case SortType.InseretionSort:
+                    Print(alg.InsertionSort(new int[] { 54, 92, 23, 71, 18, 32, 75, 31, 37, 99, 19, 0, 11, 64 }, out elapsedTimeMs));
+                    break;
+                default:
+                    elapsedTimeMs = 0;
+                    break;
+
+            }
+            Console.WriteLine("");
+            Console.WriteLine(type+" Running time in MS: " + elapsedTimeMs);
+            algorhitmsRT[type.ToString()] = elapsedTimeMs;
         }
 
         public static void Print(IEnumerable<int> list)
