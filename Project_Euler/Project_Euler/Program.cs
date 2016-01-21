@@ -10,6 +10,14 @@ namespace Project_Euler
     {
         static void Main(string[] args)
         {
+            Problems problem = new Problems();
+            problem.MultiplesOfXandY(3,5,1000);
+            problem.FibonacciNumber(10);
+            problem.LargestPrimeFactor(600851475143);
+            
+            //problem.Primes(13195);
+
+            Console.ReadKey();
         }
     }
 }
