@@ -14,6 +14,7 @@ namespace Project_Euler
             problem.MultiplesOfXandY(3,5,1000);
             problem.FibonacciNumber(10);
             problem.LargestPrimeFactor(600851475143);
+            problem.LargestPalindrome(3);
             
             //problem.Primes(13195);
 

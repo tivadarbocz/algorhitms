@@ -93,6 +93,73 @@ namespace Project_Euler
         }
 
 
+        /*Largest palindrome product
+            Problem 4
+                A palindromic number reads the same both ways. The largest palindrome made from the product of two 2-digit numbers is 9009 = 91 × 99.
+                Find the largest palindrome made from the product of two 3-digit numbers.
+        */
+
+        public void LargestPalindrome(int numberOfDigits)
+        {
+            List<string> pairs = new List<string>();
+
+            int lowerBound = (int)Math.Pow(10, numberOfDigits - 1);
+
+            for (int i = (int)Math.Pow(10, numberOfDigits) - 1;  i > lowerBound ;--i)
+            {
+                for (int j = (int)Math.Pow(10, numberOfDigits) - 1; j > lowerBound  ; --j)
+                {
+                    if (IsPalindrome(i * j))
+                    {
+                        pairs.Add(i + "," + j);
+                    }
+                    
+                }
+            }
+
+            int largestX = 0;
+            int largestY = 0;
+            //Fint the largest pair
+            foreach (var item in pairs)
+            {
+                string[] numbers = item.Split(',');
+                
+                if ((int.Parse(numbers[0]) * int.Parse(numbers[1])) > (largestX * largestY))
+                {
+                    largestX = int.Parse(numbers[0]);
+                    largestY = int.Parse(numbers[1]);
+                } 
+            }
+
+            Console.WriteLine("x: {0} y: {1}", largestX, largestY);
+        }
+
+        
+
+        /*
+        Helper method to check that is the number palindrome
+        */
+
+        private bool IsPalindrome(int x)
+        {
+            string number= x.ToString();
+            char[] tmp = number.ToCharArray();
+            Array.Reverse(tmp);
+
+            string reverseNumber = new string(tmp);
+            
+
+            if (number == reverseNumber)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
         public void Primes(int x)
         {
             bool[] arrayOfPrimes = new bool[x+1];
