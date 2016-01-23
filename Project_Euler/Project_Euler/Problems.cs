@@ -159,7 +159,124 @@ namespace Project_Euler
             }
         }
 
+        /*Smallest multiple
+            Problem 5
+                2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.
+                What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?
+        */
 
+        public void SmallestMultipleOfARange(int from, int to)
+        {
+            int[] primes = { 2,3,5,7,11,13,17,19};
+            List<string> primeMembersResolution = new List<string>();
+            List<string> allPrimeMember = new List<string>();
+
+            Dictionary<int, int> largestPrimeMember = new Dictionary<int, int>();
+            int[] numbers = new int[to - from + 1];
+
+            //init
+            for (int i = 0; i < numbers.Length; ++i)
+            {
+                numbers[i] = from++;
+            }
+            
+            for (int i = 0; i < numbers.Length; ++i)
+            {
+                primeMembersResolution.Add( GetPrimeMembers(primes, numbers[i]));
+            }
+
+            //Find larges prime members
+            for (int i = 0; i < primeMembersResolution.Count; ++i)
+            {
+                if(primeMembersResolution[i] != null)
+                {
+                    var y = primeMembersResolution[i].Split(',');
+                    foreach (var item in y)
+                    {
+                        if(item.Length > 0)
+                        {
+                            allPrimeMember.Add(item);
+                        }
+                        
+                    }
+                    
+                }
+            }
+
+            for (int i = 0; i < allPrimeMember.Count; ++i)
+            {
+                var tmp = allPrimeMember[i].Split('^');
+                int _base = int.Parse(tmp[0]);
+                int _exponent = int.Parse(tmp[1]);
+                int index = i;
+            
+                for (int j = 0; j < allPrimeMember.Count; ++j)
+                {
+                    var tmp2 = allPrimeMember[j].Split('^');
+                    int _base2 = int.Parse(tmp2[0]);
+                    int _exponent2 = int.Parse(tmp2[1]);
+                    if (_base == _base2)
+                    {
+                        if (Math.Pow(_base, _exponent) >= Math.Pow(_base2, _exponent2))
+                        {
+                            if (index != j)
+                            {
+                                allPrimeMember[j] = "1^1";
+
+                            }
+                        }
+                        else
+                        {
+                            _base = _base2;
+                            _exponent = _exponent2;
+                            index = j;
+                        }
+                    }
+                }
+
+            }
+
+            int sum = 1;
+
+            for (int i = 0; i < allPrimeMember.Count; ++i)
+            {
+                var tmp = allPrimeMember[i].Split('^');
+                int _base = int.Parse(tmp[0]);
+                int _exponent = int.Parse(tmp[1]);
+                if (_base > 1)
+                {
+                    sum *= (int)Math.Pow(_base, _exponent);
+                }
+            }
+
+            Console.WriteLine(" The smallest positive number that is evenly divisible by all of the numbers from 1 to {0}: {1}",
+                to,sum);
+            
+            
+
+        }
+        /*
+        Helper Method to get the primemember resolution
+        */
+        private string GetPrimeMembers(int[] primes,int x)
+        {
+            string primeMembers = null;
+
+            int i = primes.Length-1;
+
+            while (x != 1 && i >= 0 )
+            {
+                if (primes[i] <= x && x % primes[i] == 0)
+                {
+                    int exponent =(int) Math.Log(x, primes[i]);
+                    x /= (int)(Math.Pow(primes[i],exponent));
+                    primeMembers+=(primes[i]+"" +"^"+exponent + ","); 
+                }
+                --i;
+    
+            }
+            return primeMembers;
+        }
         public void Primes(int x)
         {
             bool[] arrayOfPrimes = new bool[x+1];
