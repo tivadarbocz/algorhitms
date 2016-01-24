@@ -169,7 +169,7 @@ namespace Project_Euler
         {
             int[] primes = { 2,3,5,7,11,13,17,19};
             List<string> primeMembersResolution = new List<string>();
-            List<string> allPrimeMember = new List<string>();
+            List<string> primeMember = new List<string>();
 
             Dictionary<int, int> largestPrimeMember = new Dictionary<int, int>();
             int[] numbers = new int[to - from + 1];
@@ -185,7 +185,7 @@ namespace Project_Euler
                 primeMembersResolution.Add( GetPrimeMembers(primes, numbers[i]));
             }
 
-            //Find larges prime members
+            //Find largest prime members
             for (int i = 0; i < primeMembersResolution.Count; ++i)
             {
                 if(primeMembersResolution[i] != null)
@@ -195,7 +195,7 @@ namespace Project_Euler
                     {
                         if(item.Length > 0)
                         {
-                            allPrimeMember.Add(item);
+                            primeMember.Add(item);
                         }
                         
                     }
@@ -203,16 +203,16 @@ namespace Project_Euler
                 }
             }
 
-            for (int i = 0; i < allPrimeMember.Count; ++i)
+            for (int i = 0; i < primeMember.Count; ++i)
             {
-                var tmp = allPrimeMember[i].Split('^');
+                var tmp = primeMember[i].Split('^');
                 int _base = int.Parse(tmp[0]);
                 int _exponent = int.Parse(tmp[1]);
                 int index = i;
             
-                for (int j = 0; j < allPrimeMember.Count; ++j)
+                for (int j = 0; j < primeMember.Count; ++j)
                 {
-                    var tmp2 = allPrimeMember[j].Split('^');
+                    var tmp2 = primeMember[j].Split('^');
                     int _base2 = int.Parse(tmp2[0]);
                     int _exponent2 = int.Parse(tmp2[1]);
                     if (_base == _base2)
@@ -221,7 +221,7 @@ namespace Project_Euler
                         {
                             if (index != j)
                             {
-                                allPrimeMember[j] = "1^1";
+                                primeMember[j] = "1^1";
 
                             }
                         }
@@ -238,9 +238,9 @@ namespace Project_Euler
 
             int sum = 1;
 
-            for (int i = 0; i < allPrimeMember.Count; ++i)
+            for (int i = 0; i < primeMember.Count; ++i)
             {
-                var tmp = allPrimeMember[i].Split('^');
+                var tmp = primeMember[i].Split('^');
                 int _base = int.Parse(tmp[0]);
                 int _exponent = int.Parse(tmp[1]);
                 if (_base > 1)
@@ -276,6 +276,38 @@ namespace Project_Euler
     
             }
             return primeMembers;
+        }
+
+        /*
+        Sum square difference
+           Problem 6
+                The sum of the squares of the first ten natural numbers is,
+
+                12 + 22 + ... + 102 = 385
+                The square of the sum of the first ten natural numbers is,
+
+                (1 + 2 + ... + 10)2 = 552 = 3025
+                Hence the difference between the sum of the squares of the first ten natural numbers and the square of the sum is 3025 − 385 = 2640.
+
+                Find the difference between the sum of the squares of the first one hundred natural numbers and the square of the sum.
+        
+            
+        */
+
+        public void SumSquareDiffrence(int x)
+        {
+            long a = 0, b = 0;
+            long difference = 0;
+
+            for (int i = 1; i <= x; ++i)
+            {
+                a += (long)Math.Pow(i, 2);
+                b += i;
+            }
+
+            b =(long) Math.Pow(b, 2);
+            difference = b - a;
+            Console.WriteLine("The difference between the sum of the squares of the first {0} natural numbers and the square of the sum: {1}", x, difference);
         }
         public void Primes(int x)
         {
